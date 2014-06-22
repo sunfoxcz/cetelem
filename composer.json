@@ -1,0 +1,33 @@
+{
+	"name": "sunfox/cetelem",
+	"type": "library",
+	"description": "Knihovna pro snadnější komunikaci s aplikací Webkalkulačka společnosti Cetelem.",
+	"keywords": ["cetelem"],
+	"license": "LGPL",
+	"authors": [
+		{
+			"name": "Tomáš Jacík",
+			"email": "tomas.jacik@sunfox.cz",
+			"homepage": "http://sunfox.cz"
+		}
+	],
+	"require": {
+		"php": ">=5.3.0",
+		"ext-iconv": "*",
+		"nette/utils": "~2.2",
+		"nette/caching": "~2.2",
+		"kdyby/curl": "~2.2"
+	},
+	"require-dev": {
+		"nette/tester": "~1.2"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.1-dev"
+		}
+	}
+}
