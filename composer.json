@@ -1,5 +1,5 @@
 {
-	"name": "sunfox/cetelem",
+	"name": "sunfoxcz/cetelem",
 	"type": "library",
 	"description": "Knihovna pro snadnější komunikaci s aplikací Webkalkulačka společnosti Cetelem.",
 	"keywords": ["cetelem"],
