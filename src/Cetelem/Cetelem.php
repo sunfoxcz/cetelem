@@ -176,13 +176,16 @@ class Cetelem extends Nette\Object
 
 	private function downloadXml($url)
 	{
-		$xml = file_get_contents($url);
+		$curl = new CurlWrapper($url);
+		$curl->execute();
 
-		// $curl = new CurlWrapper($url);
-		// $curl->execute();
-		// echo $curl->isOk();
-		// echo $curl->response;
+		if (!$curl->isOk())
+		{
+			// TODO: Osetrit chyby
+			throw new Exception('CURL error');
+		}
 
+		$xml = $curl->response;
 		$xml = iconv("windows-1250", "utf-8", $xml);
 		$xml = str_replace('encoding="windows-1250"', 'encoding="utf-8"', $xml);
 
