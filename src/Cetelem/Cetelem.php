@@ -18,7 +18,7 @@ use Nette,
  */
 class Cetelem extends Nette\Object
 {
-	/** @var int */
+	/** @var string */
 	private $kodProdejce;
 
 	/** @var \Nette\Caching\Cache */
@@ -27,8 +27,8 @@ class Cetelem extends Nette\Object
 	/** @var bool */
 	private $debug = FALSE;
 
-	/* @var int */
-	static private $devPort = 8654;
+	/* @var string */
+	static private $devPort = '8654';
 
 	/** @var array */
 	static $urls = array(
@@ -40,7 +40,7 @@ class Cetelem extends Nette\Object
 
 
 	/**
-	 * @param int $kodProdejce Kod prodejce poskytnuty spolecnosti Cetelem.
+	 * @param string $kodProdejce Kod prodejce poskytnuty spolecnosti Cetelem.
 	 *        Pro testovaci ucely lze pouzit kod 2044576.
 	 * @param \Nette\Caching\IStorage $storage Nette storage (napr. FileStorage)
 	 *        pro cachovani stahnutych a zparsovanych XML souboru.
@@ -136,20 +136,11 @@ class Cetelem extends Nette\Object
 	 *
 	 * @return array
 	 */
-	public function calculate($kodBaremu, $kodPojisteni, $cenaZbozi, $pocetSplatek,
-								$primaPlatba = 0, $odklad = 0)
+	public function calculate(CetelemUver & $uver)
 	{
-		$params = array(
-			'kodProdejce'  => $this->kodProdejce,
-			'kodBaremu'    => $kodBaremu,
-			'kodPojisteni' => $kodPojisteni,
-			'cenaZbozi'    => $cenaZbozi,
-			'pocetSplatek' => $pocetSplatek,
-			'primaPlatba'  => $primaPlatba,
-			'odklad'       => $odklad
-		);
+		$uver->kodProdejce = $this->kodProdejce;
 
-		$xml = $this->parseXml($this->getUrl('kalkulacka') . '?' . http_build_query($params));
+		$xml = $this->parseXml($this->getUrl('kalkulacka') . '?' . http_build_query($uver));
 
 		$status = $xml->xpath('/webkalkulator/status');
 		if ((string)$status[0] == 'error')
@@ -160,8 +151,10 @@ class Cetelem extends Nette\Object
 		}
 
 		$result = $xml->xpath('/webkalkulator/vysledek');
-
-		return (array)$result[0];
+		foreach ($result[0] as $k => $v)
+		{
+			$uver->$k = (string)$v;
+		}
 	}
 
 	private function getUrl($type)

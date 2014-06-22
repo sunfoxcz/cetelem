@@ -2,13 +2,14 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../src/Cetelem/Cetelem.php';
+require __DIR__ . '/../src/Cetelem/CetelemUver.php';
 
-use Sunfox\Cetelem\Cetelem;
+use Sunfox\Cetelem;
 
 
 @mkdir(__DIR__ . '/tmp');
 $storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/tmp');
-$cetelem = new Cetelem(2044576, $storage);
+$cetelem = new Cetelem\Cetelem('2044576', $storage);
 $cetelem->setDebug(TRUE);
 
 
@@ -37,15 +38,13 @@ foreach ($cetelem->pojisteni as $row)
 echo "------------------------------------------------------------\n";
 echo "UKAZKOVY UVER:\n";
 echo "------------------------------------------------------------\n";
-$uver = $cetelem->calculate(
-		102,   // kod typu uveru
-		'A3',  // kod druhu pojisteni
-		12000, // cena zbozi
-		12,    // pocet splatek
-		0,     // prima platba
-		0      // odklad
-	);
-foreach ($uver as $k => $v)
-{
-	echo $k . ': ' . $v . "\n";
-}
+$uver = new Cetelem\CetelemUver;
+$uver->kodBaremu = '102';
+$uver->kodPojisteni = 'A3';
+$uver->cenaZbozi = 12000;
+$uver->pocetSplatek = 12;
+$uver->primaPlatba = 2000;
+$uver->odklad = 2;
+
+$cetelem->calculate($uver);
+print_r($uver);
