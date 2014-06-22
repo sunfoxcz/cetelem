@@ -107,26 +107,28 @@ class Cetelem extends Nette\Object
 		$xml = $this->parseXml($this->getUrl('webciselnik') . '?kodProdejce=' .
 								$this->kodProdejce . '&typ=pojisteni');
 
-		return $this->processWebciselnik($xml);
-	}
+		$error = $xml->xpath('/webciselnik/chyba');
+		if (count($error))
+		{
+			// TODO: Vlastni exception
+			throw new \Exception((string)$error[0]);
+		}
 
-	/**
-	 * Vraci pole s informacemi o druhu sortimentu.
-	 *
-	 * @return array
-	 */
-	public function getMaterial()
-	{
-		$xml = $this->parseXml($this->getUrl('webciselnik') . '?kodProdejce=' .
-								$this->kodProdejce . '&typ=material');
+		$result = array();
+		foreach ($xml->xpath('/webciselnik/moznost') as $row)
+		{
+			$result[(string)$row['hodnota']] = array(
+				'kod'   => (string)$row['hodnota'],
+				'nazev' => trim((string)$row)
+			);
+		}
 
-		return $this->processWebciselnik($xml);
+		return $result;
 	}
 
 	/**
 	 * @param int $kodBaremu Kod typu uveru dle dat zikanych funkci getBarem.
 	 * @param int $kodPojisteni Kod druhu pojisteni dle dat zikanych funkci getPojisteni.
-	 * @param int $kodMaterialu Kod druhu sortimentu dle dat zikanych funkci getMaterial.
 	 * @param int $cenaZbozi Celkova cena zbozi vcetne DPH.
 	 * @param int $pocetSplatek Pocet splatek uveru
 	 * @param int $primaPlatba Nepovinne, kolik zaplati zakaznik jeste pred uverem.
@@ -134,14 +136,13 @@ class Cetelem extends Nette\Object
 	 *
 	 * @return array
 	 */
-	public function calculate($kodBaremu, $kodPojisteni, $kodMaterialu, $cenaZbozi,
-								$pocetSplatek, $primaPlatba = 0, $odklad = 0)
+	public function calculate($kodBaremu, $kodPojisteni, $cenaZbozi, $pocetSplatek,
+								$primaPlatba = 0, $odklad = 0)
 	{
 		$params = array(
 			'kodProdejce'  => $this->kodProdejce,
 			'kodBaremu'    => $kodBaremu,
 			'kodPojisteni' => $kodPojisteni,
-			'kodMaterialu' => $kodMaterialu,
 			'cenaZbozi'    => $cenaZbozi,
 			'pocetSplatek' => $pocetSplatek,
 			'primaPlatba'  => $primaPlatba,
@@ -186,27 +187,6 @@ class Cetelem extends Nette\Object
 		$xml = str_replace('encoding="windows-1250"', 'encoding="utf-8"', $xml);
 
 		return $xml;
-	}
-
-	private function processWebciselnik($xml)
-	{
-		$error = $xml->xpath('/webciselnik/chyba');
-		if (count($error))
-		{
-			// TODO: Vlastni exception
-			throw new \Exception((string)$error[0]);
-		}
-
-		$result = array();
-		foreach ($xml->xpath('/webciselnik/moznost') as $row)
-		{
-			$result[(string)$row['hodnota']] = array(
-				'kod'   => (string)$row['hodnota'],
-				'nazev' => trim((string)$row)
-			);
-		}
-
-		return $result;
 	}
 
 	private function parseXml($url)

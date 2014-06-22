@@ -15,8 +15,6 @@ $cetelem->setDebug(TRUE);
 echo "------------------------------------------------------------\n";
 echo "UVERY:\n";
 echo "------------------------------------------------------------\n";
-print_r($cetelem->barem);
-exit;
 foreach ($cetelem->barem as $row)
 {
 	foreach ($row as $k => $v)
@@ -37,26 +35,14 @@ foreach ($cetelem->pojisteni as $row)
 }
 
 echo "------------------------------------------------------------\n";
-echo "SORTIMENT:\n";
-echo "------------------------------------------------------------\n";
-foreach ($cetelem->material as $row)
-{
-	foreach ($row as $k => $v)
-	{
-		echo $k . ': ' . $v . "\n";
-	}
-}
-
-echo "------------------------------------------------------------\n";
 echo "UKAZKOVY UVER:\n";
 echo "------------------------------------------------------------\n";
 $uver = $cetelem->calculate(
 		102,   // kod typu uveru
 		'A3',  // kod druhu pojisteni
-		758,   // kod druhu sortimentu
 		12000, // cena zbozi
-		0,     // prima platba
 		12,    // pocet splatek
+		0,     // prima platba
 		0      // odklad
 	);
 foreach ($uver as $k => $v)
