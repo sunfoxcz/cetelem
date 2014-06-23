@@ -17,7 +17,8 @@ Použití
 use Sunfox\Cetelem\Cetelem;
 
 $storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/temp');
-$cetelem = new Cetelem(2126712, $storage);
+$cetelem = new Cetelem(2044576, $storage);
+$cetelem->setDebug(TRUE);
 
 $uver = new Cetelem\CetelemUver;
 $uver->kodBaremu = '102';
