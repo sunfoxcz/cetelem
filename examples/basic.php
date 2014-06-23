@@ -8,8 +8,10 @@ use Sunfox\Cetelem;
 
 
 @mkdir(__DIR__ . '/tmp');
-$storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/tmp');
-$cetelem = new Cetelem\Cetelem('2044576', $storage);
+$curl = new Kdyby\Curl\CurlWrapper;
+// $storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/tmp');
+$storage = new Nette\Caching\Storages\DevNullStorage;
+$cetelem = new Cetelem\Cetelem('2044576', $curl, $storage);
 $cetelem->setDebug(TRUE);
 
 

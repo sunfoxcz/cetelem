@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<!DOCTYPE webkalkulator SYSTEM "https://www.cetelem.cz:8654/webkalkulacka.dtd">
+<webkalkulator>
+        <status>ok</status>
+        <info>
+        </info>
+
+        <vysledek>
+                <kodProdejce>2044576</kodProdejce>
+                <kodBaremu>102</kodBaremu>
+                <kodPojisteni>A3</kodPojisteni>
+                <cenaZbozi>12000</cenaZbozi>
+                <primaPlatba>2000</primaPlatba>
+                <vyseUveru>10000</vyseUveru>
+                <pocetSplatek>12</pocetSplatek>
+                <odklad>2</odklad>
+                <vyseSplatky>1046</vyseSplatky>
+                <cenaUveru>2552</cenaUveru>
+                <RPSN>45,19</RPSN>
+                <ursaz>32,34</ursaz>
+                <celkovaCastka>12552</celkovaCastka>
+        </vysledek>
+
+</webkalkulator>

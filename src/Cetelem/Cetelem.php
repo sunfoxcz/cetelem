@@ -7,8 +7,7 @@
 namespace Sunfox\Cetelem;
 
 use Nette,
-	Nette\Caching\Cache,
-	Kdyby\Curl\CurlWrapper;
+	Kdyby;
 
 
 /**
@@ -20,6 +19,9 @@ class Cetelem extends Nette\Object
 {
 	/** @var string */
 	private $kodProdejce;
+
+	/** @var \Kdyby\Curl\CurlWrapper */
+	private $curl;
 
 	/** @var \Nette\Caching\Cache */
 	private $cache;
@@ -45,13 +47,16 @@ class Cetelem extends Nette\Object
 	 * @param \Nette\Caching\IStorage $storage Nette storage (napr. FileStorage)
 	 *        pro cachovani stahnutych a zparsovanych XML souboru.
 	 */
-	public function __construct($kodProdejce, Nette\Caching\IStorage $storage = NULL)
+	public function __construct($kodProdejce, Kdyby\Curl\CurlWrapper $curl,
+								Nette\Caching\IStorage $storage = NULL)
 	{
 		$this->kodProdejce = $kodProdejce;
+		$this->curl = $curl;
 
 		if ($storage)
 		{
-			$this->cache = new Cache($storage);
+			$this->cache = new Nette\Caching\Cache($storage, 'Sunfox.Cetelem.XML');
+			Nette\Reflection\AnnotationsParser::setCacheStorage($storage);
 		}
 	}
 
@@ -150,11 +155,30 @@ class Cetelem extends Nette\Object
 			throw new \Exception((string)$error[0]);
 		}
 
+		$uverReflection = new Nette\Reflection\ClassType('Sunfox\Cetelem\CetelemUver');
 		$result = $xml->xpath('/webkalkulator/vysledek');
 		foreach ($result[0] as $k => $v)
 		{
-			$uver->$k = (string)$v;
+			if (property_exists($uver, $k))
+			{
+				$this->convertType($uverReflection, $uver, $k, $v);
+			}
+			else
+			{
+				throw new Exception('Unexpected property ' . $k . ' in Webkalkulator output.');
+			}
 		}
+	}
+
+	private function convertType(& $reflection, & $class, & $property, & $value)
+	{
+		$type = $reflection->getProperty($property)->getAnnotation('var');
+		if ($type == 'int')
+			$class->$property = (int)(string)$value;
+		elseif ($type == 'float')
+			$class->$property = (float)str_replace(',', '.', (string)$value);
+		else
+			$class->$property = (string)$value;
 	}
 
 	private function getUrl($type)
@@ -169,16 +193,17 @@ class Cetelem extends Nette\Object
 
 	private function downloadXml($url)
 	{
-		$curl = new CurlWrapper($url);
-		$curl->execute();
+		$this->curl->setUrl($url);
+		$this->curl->execute();
 
-		if (!$curl->isOk())
+		if ($this->curl->info['http_code'] != 200)
 		{
-			// TODO: Osetrit chyby
-			throw new Exception('CURL error');
+			// TODO: Vlastni exception
+			throw new \Exception('CURL error with HTTP code ' . $this->curl->info['http_code'] .
+									' for url: ' . $url);
 		}
 
-		$xml = $curl->response;
+		$xml = $this->curl->response;
 		$xml = iconv("windows-1250", "utf-8", $xml);
 		$xml = str_replace('encoding="windows-1250"', 'encoding="utf-8"', $xml);
 
@@ -202,7 +227,7 @@ class Cetelem extends Nette\Object
 			if ($this->cache)
 			{
 				$this->cache->save($key, $xml, array(
-					Cache::EXPIRE => '1 day',
+					Nette\Caching\Cache::EXPIRE => '1 day',
 				));
 			}
 		}

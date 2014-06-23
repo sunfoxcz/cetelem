@@ -41,7 +41,7 @@ final class CetelemUver extends Nette\Object
 	public $kodPojisteni;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Povinný vstup
 	 * Nutné zobrazovat ve formátu: Cena zboží: <cenaZbozi> Kč
@@ -49,7 +49,7 @@ final class CetelemUver extends Nette\Object
 	public $cenaZbozi;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Volitelný / modifikovatelný vstup
 	 * Nutné zobrazovat ve formátu: Přímá platba: <primaPlatba> Kč
@@ -57,7 +57,7 @@ final class CetelemUver extends Nette\Object
 	public $primaPlatba;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Volitelný / modifikovatelný vstup
 	 * Nutné zobrazovat ve formátu: Celková výše úvěru: <vyseUveru> Kč
@@ -65,7 +65,7 @@ final class CetelemUver extends Nette\Object
 	public $vyseUveru;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Povinný vstup
 	 * Nutné zobrazovat ve formátu: Počet měsíčních splátek: <pocetSplatek>
@@ -73,7 +73,7 @@ final class CetelemUver extends Nette\Object
 	public $pocetSplatek;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Volitelný / modifikovatelný vstup
 	 * Pokud je > 0, zobrazovat ve formátu: Odklad splátky (počet měsíců): <odklad>
@@ -81,7 +81,7 @@ final class CetelemUver extends Nette\Object
 	public $odklad;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Volitelný / modifikovatelný vstup
 	 * Nutné zobrazovat ve formátu: Celková výše měsíční splátky (včetně pojištění, má-li být sjednáno): <vyseSplatky> Kč
@@ -90,7 +90,7 @@ final class CetelemUver extends Nette\Object
 	public $vyseSplatky;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Pouze výstup
 	 * Nutné zobrazovat ve formátu: Cena úvěru (včetně pojištění, má-li být sjednáno): <cenaUveru> Kč
@@ -114,7 +114,7 @@ final class CetelemUver extends Nette\Object
 	public $ursaz;
 
 	/**
-	 * @var string
+	 * @var int
 	 *
 	 * Pouze výstup
 	 * Nutné zobrazovat ve formátu: Za úvěr celkem zaplatíte: <celkovaCastka> Kč

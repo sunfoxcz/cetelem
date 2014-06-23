@@ -16,10 +16,12 @@
 		"ext-iconv": "*",
 		"nette/utils": "~2.2",
 		"nette/caching": "~2.2",
+		"nette/reflection": "~2.2",
 		"kdyby/curl": "~2.2@dev"
 	},
 	"require-dev": {
-		"nette/tester": "~1.2"
+		"nette/tester": "~1.2",
+		"janmarek/mockista": "~1.0"
 	},
 	"autoload": {
 		"classmap": ["src/"]

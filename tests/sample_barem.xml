@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<!DOCTYPE bareminfo SYSTEM "https://www.cetelem.cz:8654/bareminfo.dtd">
+<bareminfo>
+	
+			
+	<barem id="210">
+		<titul>0%+24x5 - zdarma 10                </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>počet splátek 24</info>
+
+	</barem>
+			
+	<barem id="227">
+		<titul>36ms+1ms - zdarma 12               </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>počet splátek 36</info>
+<info>možný odklad splátek 2 měsíce</info>
+
+	</barem>
+			
+	<barem id="228">
+		<titul>0%+15ms+odklad - zdarma 4          </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba 0,- Kč</info>
+<info>počet splátek 15</info>
+<info>možný odklad splátek 2 až 5 měsíců</info>
+
+	</barem>
+			
+	<barem id="229">
+		<titul>15ms - zdarma 8                    </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba vždy 10% z ceny zboží</info>
+<info>počet splátek 15</info>
+
+	</barem>
+			
+	<barem id="174">
+		<titul>Zdarma variabilně                  </titul>
+		<info>úvěr 2500,- až 200000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 4 do 20</info>
+
+	</barem>
+			
+	<barem id="100">
+		<titul>Klasický úvěr                      </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 5 do 48</info>
+<info>možný odklad splátek 2 až 5 měsíců</info>
+
+	</barem>
+			
+	<barem id="102">
+		<titul>Klasický úvěr                      </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 5 do 48</info>
+<info>možný odklad splátek 2 až 5 měsíců</info>
+
+	</barem>
+			
+	<barem id="104">
+		<titul>10% + 10 x 10%                     </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba vždy 10% z ceny zboží</info>
+<info>počet splátek 10</info>
+
+	</barem>
+			
+	<barem id="160">
+		<titul>BUĎ A NEBO - zdarma do 2 měsíců    </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 5 do 36</info>
+<info>možný odklad splátek 3 měsíce</info>
+
+	</barem>
+			
+	<barem id="623">
+		<titul>Bez navýšení 10% + 9 x 10%         </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba vždy 10% z ceny zboží</info>
+<info>počet splátek 9</info>
+
+	</barem>
+			
+	<barem id="201">
+		<titul>1% měsíčně                         </titul>
+		<info>úvěr 2500,- až 200000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 5 do 25</info>
+
+	</barem>
+			
+	<barem id="235">
+		<titul>Klasický úvěr                      </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 6 do 36</info>
+<info>možný odklad splátek 2 až 5 měsíců</info>
+
+	</barem>
+			
+	<barem id="216">
+		<titul>Zdarma do 6 měsíců, jinak 20 měs.  </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba 0,- Kč</info>
+<info>počet splátek 20</info>
+
+	</barem>
+			
+	<barem id="221">
+		<titul>Zdarma do 6 měsíců, jinak 36 měs.  </titul>
+		<info>úvěr 2500,- až 200000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>počet splátek 36</info>
+
+	</barem>
+			
+	<barem id="222">
+		<titul>Zdarma do 9 měsíců, jinak 36 měs.  </titul>
+		<info>úvěr 2500,- až 200000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>počet splátek 36</info>
+
+	</barem>
+			
+	<barem id="223">
+		<titul>36ms - zdarma 12                   </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>počet splátek 36</info>
+
+	</barem>
+			
+	<barem id="226">
+		<titul>Zdarma do 4 měsíců, jinak 10%+10x10</titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba vždy 10% z ceny zboží</info>
+<info>počet splátek 10</info>
+
+	</barem>
+			
+	<barem id="151">
+		<titul>10%+11x10 - zdarma 2               </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba vždy 10% z ceny zboží</info>
+<info>počet splátek 11</info>
+<info>možný odklad splátek 3 měsíce</info>
+
+	</barem>
+			
+	<barem id="613">
+		<titul>IKEA Klasik OSVČ                   </titul>
+		<info>úvěr 10000,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 12 do 48</info>
+
+	</barem>
+			
+	<barem id="614">
+		<titul>IKEA Klasik PRÁVNICKÁ OSOBA        </titul>
+		<info>úvěr 20000,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 12 do 48</info>
+
+	</barem>
+			
+	<barem id="303">
+		<titul>Klasický úvěr 10-14                </titul>
+		<info>úvěr 2500,- až 200000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 10 do 14</info>
+<info>možný odklad splátek 2 až 5 měsíců</info>
+
+	</barem>
+			
+	<barem id="945">
+		<titul>0% + 10 x 10% (odklad)             </titul>
+		<info>úvěr 2500,- až 400000,- Kč</info>
+<info>přímá platba 0,- Kč</info>
+<info>počet splátek 10</info>
+<info>možný odklad splátek 2 až 5 měsíců</info>
+
+	</barem>
+			
+	<barem id="938">
+		<titul>Variabilní úvěr ALZA.CZ            </titul>
+		<info>úvěr 2500,- až 200000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 10 do 48</info>
+<info>možný odklad splátek 2 až 5 měsíců</info>
+
+	</barem>
+			
+	<barem id="610">
+		<titul>1 % měsíčně (5 - 30 MS)            </titul>
+		<info>úvěr 2500,- až 200000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 5 do 30</info>
+
+	</barem>
+			
+	<barem id="615">
+		<titul>ALZA Klasik OSVČ                   </titul>
+		<info>úvěr 10000,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 12 do 48</info>
+
+	</barem>
+			
+	<barem id="616">
+		<titul>ALZA Klasik PRÁVNICKÁ OSOBA        </titul>
+		<info>úvěr 20000,- až 400000,- Kč</info>
+<info>volitelná přímá platba od 0%</info>
+<info>volitelný počet splátek od 12 do 48</info>
+
+	</barem>
+	
+</bareminfo>

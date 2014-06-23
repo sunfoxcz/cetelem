@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<!DOCTYPE webciselnik SYSTEM "https://www.cetelem.cz:8654/webciselnik.dtd">
+<webciselnik>
+
+
+        <moznost hodnota="A3">SOUBOR STANDARD </moznost>
+        <moznost hodnota="B1">SOUBOR PREMIUM </moznost>
+</webciselnik>
