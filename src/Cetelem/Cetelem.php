@@ -56,7 +56,6 @@ class Cetelem extends Nette\Object
 		if ($storage)
 		{
 			$this->cache = new Nette\Caching\Cache($storage, 'Sunfox.Cetelem.XML');
-			Nette\Reflection\AnnotationsParser::setCacheStorage($storage);
 		}
 	}
 

@@ -7,10 +7,13 @@ require __DIR__ . '/../src/Cetelem/CetelemUver.php';
 use Sunfox\Cetelem;
 
 
-@mkdir(__DIR__ . '/tmp');
-$curl = new Kdyby\Curl\CurlWrapper;
+// @mkdir(__DIR__ . '/tmp');
 // $storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/tmp');
 $storage = new Nette\Caching\Storages\DevNullStorage;
+
+Nette\Reflection\AnnotationsParser::setCacheStorage($storage);
+
+$curl = new Kdyby\Curl\CurlWrapper;
 $cetelem = new Cetelem\Cetelem('2044576', $curl, $storage);
 $cetelem->setDebug(TRUE);
 
