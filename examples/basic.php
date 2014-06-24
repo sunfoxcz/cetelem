@@ -13,7 +13,8 @@ $storage = new Nette\Caching\Storages\MemoryStorage;
 
 Nette\Reflection\AnnotationsParser::setCacheStorage($storage);
 
-$curl = new Kdyby\Curl\CurlWrapper;
+$curl = new Kdyby\Curl\CurlSender;
+
 $cetelem = new Cetelem\Cetelem('2044576', $curl, $storage);
 $cetelem->setDebug(TRUE);
 

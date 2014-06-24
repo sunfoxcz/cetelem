@@ -20,7 +20,7 @@ class Cetelem extends Nette\Object
 	/** @var string */
 	private $kodProdejce;
 
-	/** @var \Kdyby\Curl\CurlWrapper */
+	/** @var \Kdyby\Curl\CurlSender */
 	private $curl;
 
 	/** @var \Nette\Caching\Cache */
@@ -44,10 +44,11 @@ class Cetelem extends Nette\Object
 	/**
 	 * @param string $kodProdejce Kod prodejce poskytnuty spolecnosti Cetelem.
 	 *        Pro testovaci ucely lze pouzit kod 2044576.
+	 * @param \Kdyby\Curl\CurlSender $curl Libka pro stahovani url pomoci curl.
 	 * @param \Nette\Caching\IStorage $storage Nette storage (napr. FileStorage)
 	 *        pro cachovani stahnutych a zparsovanych XML souboru.
 	 */
-	public function __construct($kodProdejce, Kdyby\Curl\CurlWrapper $curl,
+	public function __construct($kodProdejce, Kdyby\Curl\CurlSender $curl,
 								Nette\Caching\IStorage $storage = NULL)
 	{
 		$this->kodProdejce = $kodProdejce;
@@ -221,17 +222,10 @@ class Cetelem extends Nette\Object
 	 */
 	private function downloadXml($url)
 	{
-		$this->curl->setUrl($url);
-		$this->curl->execute();
+		$request = new Kdyby\Curl\Request($url);
+		$response = $this->curl->send($request);
 
-		if ($this->curl->info['http_code'] != 200)
-		{
-			// TODO: Vlastni exception
-			throw new \Exception('CURL error with HTTP code ' . $this->curl->info['http_code'] .
-									' for url: ' . $url);
-		}
-
-		$xml = $this->curl->response;
+		$xml = $response->getResponse();
 		$xml = iconv("windows-1250", "utf-8", $xml);
 		$xml = str_replace('encoding="windows-1250"', 'encoding="utf-8"', $xml);
 

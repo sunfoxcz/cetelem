@@ -13,15 +13,16 @@ require __DIR__ . '/../bootstrap.php';
 
 test(function() {
 	$mockista = new \Mockista\Registry();
-	$builder = $mockista->createBuilder('\Kdyby\Curl\CurlWrapper');
-	$builder->setUrl('https://www.cetelem.cz:8654/webkalkulacka.php?kodProdejce=2044576&kodBaremu=102&kodPojisteni=A3&cenaZbozi=12000&primaPlatba=2000&pocetSplatek=12&odklad=2')->once();
-	$builder->execute()->once();
 
-	$curlWrapperMock = $builder->getMock();
-	$curlWrapperMock->info = array('http_code' => 200);
-	$curlWrapperMock->response = file_get_contents(__DIR__ . '/../sample_calc.xml');
+	$builder = $mockista->createBuilder('\Kdyby\Curl\Response');
+	$builder->getResponse()->once()->andReturn(file_get_contents(__DIR__ . '/../sample_calc.xml'));
+	$resultMock = $builder->getMock();
 
-	$cetelem = new Cetelem\Cetelem('2044576', $curlWrapperMock);
+	$builder = $mockista->createBuilder('\Kdyby\Curl\CurlSender');
+	$curlSenderMock = $builder->getMock();
+	$curlSenderMock->expects('send')->once()->andReturn($resultMock);
+
+	$cetelem = new Cetelem\Cetelem('2044576', $curlSenderMock);
 	$cetelem->setDebug(TRUE);
 
 	$uver = new Cetelem\CetelemUver;
