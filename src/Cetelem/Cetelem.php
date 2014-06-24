@@ -140,7 +140,7 @@ class Cetelem extends Nette\Object
 	 *
 	 * @return array
 	 */
-	public function calculate(CetelemUver & $uver)
+	public function calculate(CetelemUver $uver)
 	{
 		$uver->kodProdejce = $this->kodProdejce;
 
@@ -154,13 +154,12 @@ class Cetelem extends Nette\Object
 			throw new \Exception((string)$error[0]);
 		}
 
-		$uverReflection = new Nette\Reflection\ClassType('Sunfox\Cetelem\CetelemUver');
 		$result = $xml->xpath('/webkalkulator/vysledek');
 		foreach ($result[0] as $k => $v)
 		{
 			if (property_exists($uver, $k))
 			{
-				$this->convertType($uverReflection, $uver, $k, $v);
+				$this->convertType($uver, $k, $v);
 			}
 			else
 			{
@@ -169,9 +168,9 @@ class Cetelem extends Nette\Object
 		}
 	}
 
-	private function convertType(& $reflection, & $class, & $property, & $value)
+	private function convertType($class, $property, $value)
 	{
-		$type = $reflection->getProperty($property)->getAnnotation('var');
+		$type = Nette\Reflection\ClassType::from($class)->getProperty($property)->getAnnotation('var');
 		if ($type == 'int')
 			$class->$property = (int)(string)$value;
 		elseif ($type == 'float')
