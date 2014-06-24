@@ -57,6 +57,12 @@ class Cetelem extends Nette\Object
 		{
 			$this->cache = new Nette\Caching\Cache($storage, 'Sunfox.Cetelem.XML');
 		}
+		else
+		{
+			$this->cache = new Nette\Caching\Cache(
+				new Nette\Caching\Storages\MemoryStorage, 'Sunfox.Cetelem.XML'
+			);
+		}
 	}
 
 	/**
@@ -163,13 +169,13 @@ class Cetelem extends Nette\Object
 			}
 			else
 			{
-				throw new Exception('Unexpected property ' . $k . ' in Webkalkulator output.');
+				throw new \Exception('Unexpected property ' . $k . ' in Webkalkulator output.');
 			}
 		}
 	}
 
 	/**
-	 * @param CetelemUver $class Instance tridy CetelemUver.
+	 * @param \Sunfox\Cetelem\CetelemUver $class Instance tridy CetelemUver.
 	 * @param string $property Nazev property tridy CetelemUver.
 	 * @param mixed $value Hodnota pro nasetovani do property.
 	 */
@@ -241,24 +247,16 @@ class Cetelem extends Nette\Object
 	 */
 	private function parseXml($url)
 	{
-		$xml = NULL;
-
-		if ($this->cache)
-		{
-			$key = 'sunfox_cetelem_' . $this->kodProdejce . '_' . crc32($url);
-			$xml = $this->cache->load($key);
-		}
+		$key = $this->kodProdejce . '_' . crc32($url);
+		$xml = $this->cache->load($key);
 
 		if (!$xml)
 		{
 			$xml = $this->downloadXml($url);
 
-			if ($this->cache)
-			{
-				$this->cache->save($key, $xml, array(
-					Nette\Caching\Cache::EXPIRE => '1 day',
-				));
-			}
+			$this->cache->save($key, $xml, array(
+				Nette\Caching\Cache::EXPIRE => '1 day',
+			));
 		}
 
 		$previousState = libxml_use_internal_errors(true);

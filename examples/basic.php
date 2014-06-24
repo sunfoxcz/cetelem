@@ -9,7 +9,7 @@ use Sunfox\Cetelem;
 
 // @mkdir(__DIR__ . '/tmp');
 // $storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/tmp');
-$storage = new Nette\Caching\Storages\DevNullStorage;
+$storage = new Nette\Caching\Storages\MemoryStorage;
 
 Nette\Reflection\AnnotationsParser::setCacheStorage($storage);
 
