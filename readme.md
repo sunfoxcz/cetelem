@@ -20,6 +20,9 @@ $storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/temp');
 $cetelem = new Cetelem(2044576, $storage);
 $cetelem->setDebug(TRUE);
 
+// Pokud nepoužíváte v Nette, je dobré dát cache i AnnotationsParseru
+\Nette\Reflection\AnnotationsParser::setCacheStorage($storage);
+
 $uver = new Cetelem\CetelemUver;
 $uver->kodBaremu = '102';
 $uver->kodPojisteni = 'A3';

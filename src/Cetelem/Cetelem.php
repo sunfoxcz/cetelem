@@ -86,8 +86,7 @@ class Cetelem extends Nette\Object
 		$error = $xml->xpath('/bareminfo/chyba');
 		if (count($error))
 		{
-			// TODO: Vlastni exception
-			throw new \Exception((string)$error[0]);
+			throw new XMLResponseException((string)$error[0]);
 		}
 
 		$result = array();
@@ -121,8 +120,7 @@ class Cetelem extends Nette\Object
 		$error = $xml->xpath('/webciselnik/chyba');
 		if (count($error))
 		{
-			// TODO: Vlastni exception
-			throw new \Exception((string)$error[0]);
+			throw new XMLResponseException((string)$error[0]);
 		}
 
 		$result = array();
@@ -157,8 +155,7 @@ class Cetelem extends Nette\Object
 		if ((string)$status[0] == 'error')
 		{
 			$error = $xml->xpath('/webkalkulator/info/zprava');
-			// TODO: Vlastni exception
-			throw new \Exception((string)$error[0]);
+			throw new XMLResponseException((string)$error[0]);
 		}
 
 		$result = $xml->xpath('/webkalkulator/vysledek');
@@ -170,7 +167,7 @@ class Cetelem extends Nette\Object
 			}
 			else
 			{
-				throw new \Exception('Unexpected property ' . $k . ' in Webkalkulator output.');
+				throw new CetelemResponseException('Unexpected property ' . $k . ' in Webkalkulator output.');
 			}
 		}
 	}
@@ -255,7 +252,7 @@ class Cetelem extends Nette\Object
 
 		$previousState = libxml_use_internal_errors(true);
 		$xml = simplexml_load_string($xml);
-		$this->handleXmlErrors();
+		$this->handleXmlErrors($previousState);
 		libxml_use_internal_errors($previousState);
 
 		return $xml;
@@ -263,8 +260,10 @@ class Cetelem extends Nette\Object
 
 	/**
 	 * Vyporada se s chybami pri parsovani xml, pokud narazi na chybu, vyhodi vyjimku.
+	 *
+	 * @param int $previousState Predchozi stav nastaveni pro libxml_use_internal_errors.
 	 */
-	private function handleXmlErrors()
+	private function handleXmlErrors($previousState)
 	{
 		if (count(libxml_get_errors()))
 		{
@@ -277,8 +276,8 @@ class Cetelem extends Nette\Object
 			libxml_clear_errors();
 			libxml_use_internal_errors($previousState);
 
-			// TODO: Vlastni exception class, ktera zobrazi vsechny chyby v XML
-			throw new \Exception($error->message, $error->code);
+			// TODO: Zobrazit vsechny chyby v XML
+			throw new XMLParserException($error->message, $error->code);
 		}
 	}
 

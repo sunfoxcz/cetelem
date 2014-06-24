@@ -3,6 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../src/Cetelem/Cetelem.php';
 require __DIR__ . '/../src/Cetelem/CetelemUver.php';
+require __DIR__ . '/../src/Cetelem/exceptions.php';
 
 use Sunfox\Cetelem;
 
