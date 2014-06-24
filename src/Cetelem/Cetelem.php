@@ -168,27 +168,51 @@ class Cetelem extends Nette\Object
 		}
 	}
 
+	/**
+	 * @param CetelemUver $class Instance tridy CetelemUver.
+	 * @param string $property Nazev property tridy CetelemUver.
+	 * @param mixed $value Hodnota pro nasetovani do property.
+	 */
 	private function convertType($class, $property, $value)
 	{
 		$type = Nette\Reflection\ClassType::from($class)->getProperty($property)->getAnnotation('var');
+
 		if ($type == 'int')
+		{
 			$class->$property = (int)(string)$value;
+		}
 		elseif ($type == 'float')
+		{
 			$class->$property = (float)str_replace(',', '.', (string)$value);
+		}
 		else
+		{
 			$class->$property = (string)$value;
+		}
 	}
 
+	/**
+	 * @param string $type Sluzba, jejiz url chceme.
+	 *
+	 * @return string Url sluzby v zavislosti na zapnutem ci vypnutem debug modu.
+	 */
 	private function getUrl($type)
 	{
 		$url = self::$urls[$type];
 
 		if ($this->debug)
+		{
 			return str_replace('cetelem.cz', 'cetelem.cz:' . self::$devPort, $url);
+		}
 
 		return $url;
 	}
 
+	/**
+	 * @param string $url Url xml souboru, ktery chceme stahnout.
+	 *
+	 * @return string Stazeny xml soubor zkonvertovany na kodovani utf-8.
+	 */
 	private function downloadXml($url)
 	{
 		$this->curl->setUrl($url);
@@ -208,6 +232,13 @@ class Cetelem extends Nette\Object
 		return $xml;
 	}
 
+	/**
+	 * Funkce zajisti stazeni xml souboru, pokud neni v cache a jeho ulozeni do cache.
+	 *
+	 * @param string $url Url xml souboru, ktery chceme parsovat.
+	 *
+	 * @return SimpleXMLElement Instance tridy SimpleXMLElement
+	 */
 	private function parseXml($url)
 	{
 		$xml = NULL;
@@ -238,6 +269,9 @@ class Cetelem extends Nette\Object
 		return $xml;
 	}
 
+	/**
+	 * Vyporada se s chybami pri parsovani xml, pokud narazi na chybu, vyhodi vyjimku.
+	 */
 	private function handleXmlErrors()
 	{
 		if (count(libxml_get_errors()))
