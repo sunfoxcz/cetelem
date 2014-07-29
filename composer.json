@@ -17,7 +17,7 @@
 		"nette/utils": "~2.2",
 		"nette/caching": "~2.2",
 		"nette/reflection": "~2.2",
-		"kdyby/curl": "~2.2@dev"
+		"kdyby/curl": "~2.2"
 	},
 	"require-dev": {
 		"nette/tester": "~1.2",
