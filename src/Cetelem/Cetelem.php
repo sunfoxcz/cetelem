@@ -33,7 +33,7 @@ class Cetelem extends Nette\Object
 	static private $devPort = '8654';
 
 	/** @var array */
-	static $urls = array(
+	static private $urls = array(
 		'zadost'      => 'https://www.cetelem.cz/cetelem2_webshop.php/zadost-o-pujcku/on-line-zadost-o-pujcku',
 		'kalkulacka'  => 'https://www.cetelem.cz/webkalkulacka.php',
 		'bareminfo'   => 'https://www.cetelem.cz/bareminfo.php',
@@ -81,7 +81,7 @@ class Cetelem extends Nette\Object
 	 */
 	public function getBarem()
 	{
-		$xml = $this->parseXml($this->getUrl('bareminfo') . '?kodProdejce=' . $this->kodProdejce);
+		$xml = $this->parseXml($this->getUrl('bareminfo'));
 
 		$error = $xml->xpath('/bareminfo/chyba');
 		if (count($error))
@@ -114,8 +114,7 @@ class Cetelem extends Nette\Object
 	 */
 	public function getPojisteni()
 	{
-		$xml = $this->parseXml($this->getUrl('webciselnik') . '?kodProdejce=' .
-								$this->kodProdejce . '&typ=pojisteni');
+		$xml = $this->parseXml($this->getUrl('webciselnik') . '&typ=pojisteni');
 
 		$error = $xml->xpath('/webciselnik/chyba');
 		if (count($error))
@@ -147,8 +146,6 @@ class Cetelem extends Nette\Object
 	 */
 	public function calculate(CetelemUver $uver)
 	{
-		$uver->kodProdejce = $this->kodProdejce;
-
 		$xml = $this->parseXml($this->getUrl('kalkulacka') . '?' . http_build_query($uver));
 
 		$status = $xml->xpath('/webkalkulator/status');
@@ -202,7 +199,7 @@ class Cetelem extends Nette\Object
 	 */
 	private function getUrl($type)
 	{
-		$url = self::$urls[$type];
+		$url = self::$urls[$type] . '?kodProdejce=' . $this->kodProdejce;
 
 		if ($this->debug)
 		{
@@ -238,7 +235,7 @@ class Cetelem extends Nette\Object
 	 */
 	private function parseXml($url)
 	{
-		$key = $this->kodProdejce . '_' . crc32($url);
+		$key = crc32($url);
 		$xml = $this->cache->load($key);
 
 		if (!$xml)

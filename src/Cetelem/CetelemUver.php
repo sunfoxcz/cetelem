@@ -20,7 +20,7 @@ final class CetelemUver extends Nette\Object
 	 * @var string
 	 *
 	 * Povinný vstup
-	 * V testovacím režimu používejte testovacího prodejce číslo 2044576
+	 * V testovacím režimu lze použít testovacího prodejce číslo 2044576
 	 */
 	public $kodProdejce;
 

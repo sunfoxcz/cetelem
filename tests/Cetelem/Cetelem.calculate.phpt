@@ -35,7 +35,6 @@ test(function() {
 
 	$cetelem->calculate($uver);
 
-	Assert::same($uver->kodProdejce, '2044576');
 	Assert::same($uver->kodBaremu, '102');
 	Assert::same($uver->kodPojisteni, 'A3');
 	Assert::same($uver->cenaZbozi, 12000);
