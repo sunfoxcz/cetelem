@@ -29,7 +29,7 @@ class Cetelem extends Nette\Object
 	/** @var bool */
 	private $debug = FALSE;
 
-	/* @var string */
+	/** @var string */
 	static private $devPort = '8654';
 
 	/** @var array */
