@@ -14,22 +14,22 @@
 	"require": {
 		"php": ">=5.3.0",
 		"ext-iconv": "*",
-		"nette/utils": "~2.2",
-		"nette/caching": "~2.2",
-		"nette/reflection": "~2.2",
-		"kdyby/curl": "~2.2"
+		"nette/utils": "~2.2.0",
+		"nette/caching": "~2.2.0",
+		"nette/reflection": "~2.2.0",
+		"kdyby/curl": "~2.2.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.2",
-		"janmarek/mockista": "~1.0"
+		"nette/tester": "~1.2.0",
+		"janmarek/mockista": "~1.0.0"
 	},
 	"autoload": {
 		"classmap": ["src/"]
 	},
-	"minimum-stability": "dev",
+	"minimum-stability": "stable",
 	"extra": {
 		"branch-alias": {
-			"dev-master": "0.1-dev"
+			"dev-master": "0.1.x-dev"
 		}
 	}
 }
