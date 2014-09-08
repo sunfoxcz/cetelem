@@ -146,13 +146,17 @@ class Cetelem extends Nette\Object
 	 */
 	public function calculate(CetelemUver $uver)
 	{
-		$xml = $this->parseXml($this->getUrl('kalkulacka') . '?' . http_build_query($uver));
+		$xml = $this->parseXml($this->getUrl('kalkulacka') . '&' . http_build_query($uver));
 
 		$status = $xml->xpath('/webkalkulator/status');
 		if ((string)$status[0] == 'error')
 		{
 			$error = $xml->xpath('/webkalkulator/info/zprava');
-			throw new XMLResponseException((string)$error[0]);
+			if (count($error))
+			{
+				throw new XMLResponseException((string)$error[0]);
+			}
+			throw new XMLResponseException('Unknown error');
 		}
 
 		$result = $xml->xpath('/webkalkulator/vysledek');
