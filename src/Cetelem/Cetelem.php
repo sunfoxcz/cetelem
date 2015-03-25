@@ -148,13 +148,21 @@ class Cetelem extends Nette\Object
 	{
 		$xml = $this->parseXml($this->getUrl('kalkulacka') . '&' . http_build_query($uver));
 
+		$info = $xml->xpath('/webkalkulator/info/zprava');
+		if (count($info))
+		{
+			foreach ($info as $message)
+			{
+				$uver->info[] = (string)$message;
+			}
+		}
+
 		$status = $xml->xpath('/webkalkulator/status');
 		if ((string)$status[0] == 'error')
 		{
-			$error = $xml->xpath('/webkalkulator/info/zprava');
-			if (count($error))
+			if (count($info))
 			{
-				throw new XMLResponseException((string)$error[0]);
+				throw new XMLResponseException((string)$info[0]);
 			}
 			throw new XMLResponseException('Unknown error');
 		}

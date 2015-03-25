@@ -3,6 +3,7 @@
 <webkalkulator>
         <status>ok</status>
         <info>
+                <zprava>Prodejce nema povolen produkt</zprava>
         </info>
 
         <vysledek>

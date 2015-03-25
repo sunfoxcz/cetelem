@@ -121,4 +121,11 @@ final class CetelemUver extends Nette\Object
 	 */
 	public $celkovaCastka;
 
+	/**
+	 * @var array
+	 *
+	 * Obsahuje vracene textove informace, pokud byly nejake vraceny.
+	 */
+	public $info = array();
+
 }
