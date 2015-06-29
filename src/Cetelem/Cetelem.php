@@ -6,8 +6,8 @@
 
 namespace Sunfox\Cetelem;
 
-use Nette,
-	Kdyby;
+use Nette;
+use Kdyby;
 
 
 /**

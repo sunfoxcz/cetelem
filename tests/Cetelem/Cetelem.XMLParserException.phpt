@@ -4,8 +4,8 @@
  * Test: Sunfox\Cetelem\Cetelem XMLParserException test.
  */
 
-use Sunfox\Cetelem,
-	Tester\Assert;
+use Sunfox\Cetelem;
+use Tester\Assert;
 
 
 require __DIR__ . '/../bootstrap.php';
