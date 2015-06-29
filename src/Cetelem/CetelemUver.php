@@ -84,7 +84,8 @@ final class CetelemUver extends Nette\Object
 	 * @var int
 	 *
 	 * Volitelný / modifikovatelný vstup
-	 * Nutné zobrazovat ve formátu: Celková výše měsíční splátky (včetně pojištění, má-li být sjednáno): <vyseSplatky> Kč
+	 * Nutné zobrazovat ve formátu: Celková výše měsíční splátky
+	 * (včetně pojištění, má-li být sjednáno): <vyseSplatky> Kč
 	 * Musí být zadaná na vstupu, pokud není na vstupu zadán pocetSplatek.
 	 */
 	public $vyseSplatky;

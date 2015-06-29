@@ -15,7 +15,9 @@ test(function() {
 	$mockista = new \Mockista\Registry();
 
 	$builder = $mockista->createBuilder('\Kdyby\Curl\Response');
-	$builder->getResponse()->once()->andReturn(file_get_contents(__DIR__ . '/../sample_pojisteni.xml'));
+	$builder->getResponse()->once()->andReturn(
+		file_get_contents(__DIR__ . '/../sample_pojisteni.xml')
+	);
 	$resultMock = $builder->getMock();
 
 	$builder = $mockista->createBuilder('\Kdyby\Curl\CurlSender');
@@ -26,8 +28,7 @@ test(function() {
 	$cetelem->setDebug(TRUE);
 
 	Assert::same(
-		$cetelem->getPojisteni(),
-		[
+		$cetelem->getPojisteni(), [
 			'A3' => ['kod' => 'A3', 'nazev' => 'SOUBOR STANDARD'],
 			'B1' => ['kod' => 'B1', 'nazev' => 'SOUBOR PREMIUM'],
 		]

@@ -20,10 +20,10 @@ class Cetelem extends Nette\Object
 	/** @var string */
 	private $kodProdejce;
 
-	/** @var \Kdyby\Curl\CurlSender */
+	/** @var Kdyby\Curl\CurlSender */
 	private $curl;
 
-	/** @var \Nette\Caching\Cache */
+	/** @var Nette\Caching\Cache */
 	private $cache;
 
 	/** @var bool */
@@ -44,8 +44,8 @@ class Cetelem extends Nette\Object
 	/**
 	 * @param string $kodProdejce Kod prodejce poskytnuty spolecnosti Cetelem.
 	 *        Pro testovaci ucely lze pouzit kod 2044576.
-	 * @param \Kdyby\Curl\CurlSender $curl Libka pro stahovani url pomoci curl.
-	 * @param \Nette\Caching\IStorage $storage Nette storage (napr. FileStorage)
+	 * @param Kdyby\Curl\CurlSender $curl Libka pro stahovani url pomoci curl.
+	 * @param Nette\Caching\IStorage $storage Nette storage (napr. FileStorage)
 	 *        pro cachovani stahnutych a zparsovanych XML souboru.
 	 */
 	public function __construct($kodProdejce, Kdyby\Curl\CurlSender $curl,
@@ -54,16 +54,11 @@ class Cetelem extends Nette\Object
 		$this->kodProdejce = $kodProdejce;
 		$this->curl = $curl;
 
-		if ($storage)
-		{
-			$this->cache = new Nette\Caching\Cache($storage, 'Sunfox.Cetelem.XML');
+		if (!$storage) {
+			$storage = new Nette\Caching\Storages\MemoryStorage;
 		}
-		else
-		{
-			$this->cache = new Nette\Caching\Cache(
-				new Nette\Caching\Storages\MemoryStorage, 'Sunfox.Cetelem.XML'
-			);
-		}
+
+		$this->cache = new Nette\Caching\Cache($storage, 'Sunfox.Cetelem.XML');
 	}
 
 	/**
@@ -84,8 +79,7 @@ class Cetelem extends Nette\Object
 		$xml = $this->parseXml($this->getUrl('bareminfo'));
 
 		$error = $xml->xpath('/bareminfo/chyba');
-		if (count($error))
-		{
+		if (count($error)) {
 			throw new XMLResponseException((string)$error[0]);
 		}
 
@@ -117,8 +111,7 @@ class Cetelem extends Nette\Object
 		$xml = $this->parseXml($this->getUrl('webciselnik') . '&typ=pojisteni');
 
 		$error = $xml->xpath('/webciselnik/chyba');
-		if (count($error))
-		{
+		if (count($error)) {
 			throw new XMLResponseException((string)$error[0]);
 		}
 
@@ -149,34 +142,30 @@ class Cetelem extends Nette\Object
 		$xml = $this->parseXml($this->getUrl('kalkulacka') . '&' . http_build_query($uver));
 
 		$info = $xml->xpath('/webkalkulator/info/zprava');
-		if (count($info))
-		{
-			foreach ($info as $message)
-			{
+		if (count($info)) {
+			foreach ($info as $message) {
 				$uver->info[] = (string)$message;
 			}
 		}
 
 		$status = $xml->xpath('/webkalkulator/status');
-		if ((string)$status[0] == 'error')
-		{
-			if (count($info))
-			{
+		if ((string)$status[0] == 'error') {
+			if (count($info)) {
 				throw new XMLResponseException((string)$info[0]);
 			}
+
 			throw new XMLResponseException('Unknown error');
 		}
 
 		$result = $xml->xpath('/webkalkulator/vysledek');
 		foreach ($result[0] as $k => $v)
 		{
-			if (property_exists($uver, $k))
-			{
+			if (property_exists($uver, $k)) {
 				$this->convertType($uver, $k, $v);
-			}
-			else
-			{
-				throw new CetelemResponseException('Unexpected property ' . $k . ' in Webkalkulator output.');
+			} else {
+				throw new CetelemResponseException(
+					'Unexpected property ' . $k . ' in Webkalkulator output.'
+				);
 			}
 		}
 	}
@@ -188,18 +177,15 @@ class Cetelem extends Nette\Object
 	 */
 	private function convertType($class, $property, $value)
 	{
-		$type = Nette\Reflection\ClassType::from($class)->getProperty($property)->getAnnotation('var');
+		$type = Nette\Reflection\ClassType::from($class)
+			->getProperty($property)
+			->getAnnotation('var');
 
-		if ($type == 'int')
-		{
+		if ($type == 'int') {
 			$class->$property = (int)(string)$value;
-		}
-		elseif ($type == 'float')
-		{
+		} elseif ($type == 'float') {
 			$class->$property = (float)str_replace(',', '.', (string)$value);
-		}
-		else
-		{
+		} else {
 			$class->$property = (string)$value;
 		}
 	}
@@ -213,8 +199,7 @@ class Cetelem extends Nette\Object
 	{
 		$url = self::$urls[$type] . '?kodProdejce=' . $this->kodProdejce;
 
-		if ($this->debug)
-		{
+		if ($this->debug) {
 			return str_replace('cetelem.cz', 'cetelem.cz:' . self::$devPort, $url);
 		}
 
@@ -277,8 +262,7 @@ class Cetelem extends Nette\Object
 		if (count(libxml_get_errors()))
 		{
 			$error = NULL;
-			foreach (libxml_get_errors() as $e)
-			{
+			foreach (libxml_get_errors() as $e) {
 				$error = $e;
 			}
 

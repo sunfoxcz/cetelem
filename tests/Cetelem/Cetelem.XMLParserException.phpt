@@ -28,7 +28,7 @@ test(function() {
 	$cetelem->setDebug(TRUE);
 
 	Assert::exception(
-		function() use ($cetelem) { $cetelem->getBarem(); },
+		function () use ($cetelem) { $cetelem->getBarem(); },
 		'Sunfox\Cetelem\XMLParserException'
 	);
 
