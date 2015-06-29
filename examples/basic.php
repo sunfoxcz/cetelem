@@ -14,9 +14,9 @@ $storage = new Nette\Caching\Storages\MemoryStorage;
 
 Nette\Reflection\AnnotationsParser::setCacheStorage($storage);
 
-$curl = new Kdyby\Curl\CurlSender;
+$client = new GuzzleHttp\Client;
 
-$cetelem = new Cetelem\Cetelem('2044576', $curl, $storage);
+$cetelem = new Cetelem\Cetelem('2044576', $client, $storage);
 $cetelem->setDebug(TRUE);
 
 

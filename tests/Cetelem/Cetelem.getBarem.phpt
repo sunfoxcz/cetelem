@@ -14,17 +14,17 @@ require __DIR__ . '/../bootstrap.php';
 test(function() {
 	$mockista = new \Mockista\Registry();
 
-	$builder = $mockista->createBuilder('\Kdyby\Curl\Response');
-	$builder->getResponse()->once()->andReturn(
+	$builder = $mockista->createBuilder('\GuzzleHttp\Psr7\Response');
+	$builder->getBody()->once()->andReturn(
 		file_get_contents(__DIR__ . '/../sample_barem.xml')
 	);
-	$resultMock = $builder->getMock();
+	$responsetMock = $builder->getMock();
 
-	$builder = $mockista->createBuilder('\Kdyby\Curl\CurlSender');
-	$curlSenderMock = $builder->getMock();
-	$curlSenderMock->expects('send')->once()->andReturn($resultMock);
+	$builder = $mockista->createBuilder('\GuzzleHttp\Client');
+	$clientMock = $builder->getMock();
+	$clientMock->expects('get')->once()->andReturn($responsetMock);
 
-	$cetelem = new Cetelem\Cetelem('2044576', $curlSenderMock);
+	$cetelem = new Cetelem\Cetelem(KOD_PRODEJCE, $clientMock);
 	$cetelem->setDebug(TRUE);
 
 	Assert::same(

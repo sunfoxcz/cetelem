@@ -6,8 +6,8 @@
 
 namespace Sunfox\Cetelem;
 
+use GuzzleHttp;
 use Nette;
-use Kdyby;
 
 
 /**
@@ -20,8 +20,8 @@ class Cetelem extends Nette\Object
 	/** @var string */
 	private $kodProdejce;
 
-	/** @var Kdyby\Curl\CurlSender */
-	private $curl;
+	/** @var GuzzleHttp\ClientInterface */
+	private $httpClient;
 
 	/** @var Nette\Caching\Cache */
 	private $cache;
@@ -44,15 +44,15 @@ class Cetelem extends Nette\Object
 	/**
 	 * @param string $kodProdejce Kod prodejce poskytnuty spolecnosti Cetelem.
 	 *        Pro testovaci ucely lze pouzit kod 2044576.
-	 * @param Kdyby\Curl\CurlSender $curl Libka pro stahovani url pomoci curl.
+	 * @param GuzzleHttp\ClientInterface $httpClient Knihovna http klienta.
 	 * @param Nette\Caching\IStorage $storage Nette storage (napr. FileStorage)
 	 *        pro cachovani stahnutych a zparsovanych XML souboru.
 	 */
-	public function __construct($kodProdejce, Kdyby\Curl\CurlSender $curl,
+	public function __construct($kodProdejce, GuzzleHttp\ClientInterface $httpClient,
 								Nette\Caching\IStorage $storage = NULL)
 	{
 		$this->kodProdejce = $kodProdejce;
-		$this->curl = $curl;
+		$this->httpClient = $httpClient;
 
 		if (!$storage) {
 			$storage = new Nette\Caching\Storages\MemoryStorage;
@@ -213,10 +213,9 @@ class Cetelem extends Nette\Object
 	 */
 	private function downloadXml($url)
 	{
-		$request = new Kdyby\Curl\Request($url);
-		$response = $this->curl->send($request);
+		$response = $this->httpClient->get($url);
 
-		$xml = $response->getResponse();
+		$xml = $response->getBody();
 		$xml = iconv("windows-1250", "utf-8", $xml);
 		$xml = str_replace('encoding="windows-1250"', 'encoding="utf-8"', $xml);
 

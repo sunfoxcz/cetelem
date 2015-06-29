@@ -8,7 +8,7 @@ Knihovna pro zjednodušení práce s Webkalkulačkou firmy Cetelem. Prozatím ko
 Instalace
 ---------
 
-	composer require sunfoxcz/cetelem:~0.1@dev
+	composer require sunfoxcz/cetelem:~0.2
 
 Použití
 -------
@@ -16,8 +16,9 @@ Použití
 ```php
 use Sunfox\Cetelem\Cetelem;
 
-$storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/temp');
-$cetelem = new Cetelem(2044576, $storage);
+$storage = new Nette\Caching\Storages\FileStorage(__DIR__ . '/tmp');
+$client = new GuzzleHttp\Client;
+$cetelem = new Cetelem(2044576, $client, $storage);
 $cetelem->setDebug(TRUE);
 
 // Pokud nepoužíváte v Nette, je dobré dát cache i AnnotationsParseru
