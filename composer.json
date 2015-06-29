@@ -15,13 +15,13 @@
 		"php": ">=5.4.4",
 		"ext-iconv": "*",
 		"nette/utils": "~2.3.0",
-		"nette/caching": "~2.3.0",
+		"nette/caching": "~2.4.0",
 		"nette/reflection": "~2.3.0",
 		"kdyby/curl": "~2.2.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.2.0",
-		"janmarek/mockista": "~1.0.0"
+		"nette/tester": "~1.4",
+		"janmarek/mockista": "~1.1"
 	},
 	"autoload": {
 		"classmap": ["src/"]
