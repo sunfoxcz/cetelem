@@ -47,7 +47,7 @@ test(function() {
 	Assert::same($uver->RPSN, 45.19);
 	Assert::same($uver->ursaz, 32.34);
 	Assert::same($uver->celkovaCastka, 12552);
-	Assert::same($uver->info, array('Prodejce nema povolen produkt'));
+	Assert::same($uver->info, ['Prodejce nema povolen produkt']);
 
 	$mockista->assertExpectations();
 });

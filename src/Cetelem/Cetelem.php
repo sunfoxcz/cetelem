@@ -33,12 +33,12 @@ class Cetelem extends Nette\Object
 	static private $devPort = '8654';
 
 	/** @var array */
-	static private $urls = array(
+	static private $urls = [
 		'zadost'      => 'https://www.cetelem.cz/cetelem2_webshop.php/zadost-o-pujcku/on-line-zadost-o-pujcku',
 		'kalkulacka'  => 'https://www.cetelem.cz/webkalkulacka.php',
 		'bareminfo'   => 'https://www.cetelem.cz/bareminfo.php',
 		'webciselnik' => 'https://www.cetelem.cz/webciselnik.php'
-	);
+	];
 
 
 	/**
@@ -89,19 +89,19 @@ class Cetelem extends Nette\Object
 			throw new XMLResponseException((string)$error[0]);
 		}
 
-		$result = array();
+		$result = [];
 		foreach ($xml->xpath('/bareminfo/barem') as $row)
 		{
-			$info = array();
+			$info = [];
 			foreach ($row->info as $line)
 			{
 				$info[] = trim((string)$line);
 			}
-			$result[(string)$row['id']] = array(
+			$result[(string)$row['id']] = [
 				'kod'   => (string)$row['id'],
 				'nazev' => trim($row->titul),
 				'info'  => implode("\n", $info)
-			);
+			];
 		}
 
 		return $result;
@@ -122,13 +122,13 @@ class Cetelem extends Nette\Object
 			throw new XMLResponseException((string)$error[0]);
 		}
 
-		$result = array();
+		$result = [];
 		foreach ($xml->xpath('/webciselnik/moznost') as $row)
 		{
-			$result[(string)$row['hodnota']] = array(
+			$result[(string)$row['hodnota']] = [
 				'kod'   => (string)$row['hodnota'],
 				'nazev' => trim((string)$row)
-			);
+			];
 		}
 
 		return $result;
@@ -254,9 +254,9 @@ class Cetelem extends Nette\Object
 		{
 			$xml = $this->downloadXml($url);
 
-			$this->cache->save($key, $xml, array(
+			$this->cache->save($key, $xml, [
 				Nette\Caching\Cache::EXPIRE => '1 day',
-			));
+			]);
 		}
 
 		$previousState = libxml_use_internal_errors(true);

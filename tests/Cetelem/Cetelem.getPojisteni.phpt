@@ -27,10 +27,10 @@ test(function() {
 
 	Assert::same(
 		$cetelem->getPojisteni(),
-		array(
-			'A3' => array('kod' => 'A3', 'nazev' => 'SOUBOR STANDARD'),
-			'B1' => array('kod' => 'B1', 'nazev' => 'SOUBOR PREMIUM'),
-		)
+		[
+			'A3' => ['kod' => 'A3', 'nazev' => 'SOUBOR STANDARD'],
+			'B1' => ['kod' => 'B1', 'nazev' => 'SOUBOR PREMIUM'],
+		]
 	);
 
 	$mockista->assertExpectations();

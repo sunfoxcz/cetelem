@@ -126,6 +126,6 @@ final class CetelemUver extends Nette\Object
 	 *
 	 * Obsahuje vracene textove informace, pokud byly nejake vraceny.
 	 */
-	public $info = array();
+	public $info = [];
 
 }
