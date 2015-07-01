@@ -128,12 +128,7 @@ class Cetelem extends Nette\Object
 	}
 
 	/**
-	 * @param int $kodBaremu Kod typu uveru dle dat zikanych funkci getBarem.
-	 * @param int $kodPojisteni Kod druhu pojisteni dle dat zikanych funkci getPojisteni.
-	 * @param int $cenaZbozi Celkova cena zbozi vcetne DPH.
-	 * @param int $pocetSplatek Pocet splatek uveru
-	 * @param int $primaPlatba Nepovinne, kolik zaplati zakaznik jeste pred uverem.
-	 * @param int $odklad Nepovinne, odklad uveru v mesicich
+	 * @param CetelemUver $uver Instance objektu nesouciho informace o uveru
 	 *
 	 * @return array
 	 */
@@ -254,7 +249,7 @@ class Cetelem extends Nette\Object
 	/**
 	 * Vyporada se s chybami pri parsovani xml, pokud narazi na chybu, vyhodi vyjimku.
 	 *
-	 * @param int $previousState Predchozi stav nastaveni pro libxml_use_internal_errors.
+	 * @param bool $previousState Predchozi stav nastaveni pro libxml_use_internal_errors.
 	 */
 	private function handleXmlErrors($previousState)
 	{
