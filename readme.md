@@ -2,6 +2,7 @@ Cetelem library
 ===============
 
 [![Build Status](https://travis-ci.org/sunfoxcz/cetelem.svg?branch=master)](https://travis-ci.org/sunfoxcz/cetelem)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sunfoxcz/cetelem/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sunfoxcz/cetelem/?branch=master)
 
 Knihovna pro zjednodušení práce s Webkalkulačkou firmy Cetelem. Prozatím koncipována pro framework Nette.
 
