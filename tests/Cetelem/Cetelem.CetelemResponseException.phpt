@@ -12,35 +12,35 @@ require __DIR__ . '/../bootstrap.php';
 
 
 test(function() {
-	$mockista = new \Mockista\Registry();
+	$responsetMock = Mockery::mock('GuzzleHttp\Psr7\Response')
+        ->shouldReceive('getBody')->once()
+        ->andReturn(
+            '<webkalkulator>' .
+                '<status>ok</status>' .
+                '<vysledek>' .
+                    '<kodProdejce>2044576</kodProdejce>' .
+                    '<kodBaremu>102</kodBaremu>' .
+                    '<kodPojisteni>A3</kodPojisteni>' .
+                    '<cenaZbozi>12000</cenaZbozi>' .
+                    '<primaPlatba>2000</primaPlatba>' .
+                    '<vyseUveru>10000</vyseUveru>' .
+                    '<pocetSplatek>12</pocetSplatek>' .
+                    '<odklad>2</odklad>' .
+                    '<vyseSplatky>1046</vyseSplatky>' .
+                    '<cenaUveru>2552</cenaUveru>' .
+                    '<RPSN>45,19</RPSN>' .
+                    '<ursaz>32,34</ursaz>' .
+                    '<celkovaCastka>12552</celkovaCastka>' .
+                    '<test>abc</test>' .
+                '</vysledek>' .
+            '</webkalkulator>'
+        )
+        ->getMock();
 
-	$builder = $mockista->createBuilder('\GuzzleHttp\Psr7\Response');
-	$builder->getBody()->once()->andReturn(
-		'<webkalkulator>' .
-			'<status>ok</status>' .
-			'<vysledek>' .
-				'<kodProdejce>2044576</kodProdejce>' .
-				'<kodBaremu>102</kodBaremu>' .
-				'<kodPojisteni>A3</kodPojisteni>' .
-				'<cenaZbozi>12000</cenaZbozi>' .
-				'<primaPlatba>2000</primaPlatba>' .
-				'<vyseUveru>10000</vyseUveru>' .
-				'<pocetSplatek>12</pocetSplatek>' .
-				'<odklad>2</odklad>' .
-				'<vyseSplatky>1046</vyseSplatky>' .
-				'<cenaUveru>2552</cenaUveru>' .
-				'<RPSN>45,19</RPSN>' .
-				'<ursaz>32,34</ursaz>' .
-				'<celkovaCastka>12552</celkovaCastka>' .
-				'<test>abc</test>' .
-			'</vysledek>' .
-		'</webkalkulator>'
-	);
-	$responsetMock = $builder->getMock();
-
-	$builder = $mockista->createBuilder('\GuzzleHttp\Client');
-	$clientMock = $builder->getMock();
-	$clientMock->expects('get')->once()->andReturn($responsetMock);
+    $clientMock = Mockery::mock('GuzzleHttp\Client')
+        ->shouldReceive('get')->once()
+        ->andReturn($responsetMock)
+        ->getMock();
 
 	$cetelem = new Cetelem\Cetelem(KOD_PRODEJCE, $clientMock);
 	$cetelem->setDebug(TRUE);
@@ -59,5 +59,5 @@ test(function() {
 		'Unexpected property test in Webkalkulator output.'
 	);
 
-	$mockista->assertExpectations();
+	Mockery::close();
 });

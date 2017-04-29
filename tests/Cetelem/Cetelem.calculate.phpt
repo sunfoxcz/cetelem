@@ -12,17 +12,15 @@ require __DIR__ . '/../bootstrap.php';
 
 
 test(function() {
-	$mockista = new \Mockista\Registry();
+    $responsetMock = Mockery::mock('GuzzleHttp\Psr7\Response')
+        ->shouldReceive('getBody')->once()
+        ->andReturn(file_get_contents(__DIR__ . '/../samples/sample_calc.xml'))
+        ->getMock();
 
-	$builder = $mockista->createBuilder('\GuzzleHttp\Psr7\Response');
-	$builder->getBody()->once()->andReturn(
-		file_get_contents(__DIR__ . '/../sample_calc.xml')
-	);
-	$responsetMock = $builder->getMock();
-
-	$builder = $mockista->createBuilder('\GuzzleHttp\Client');
-	$clientMock = $builder->getMock();
-	$clientMock->expects('get')->once()->andReturn($responsetMock);
+    $clientMock = Mockery::mock('GuzzleHttp\Client')
+        ->shouldReceive('get')->once()
+        ->andReturn($responsetMock)
+        ->getMock();
 
 	$cetelem = new Cetelem\Cetelem(KOD_PRODEJCE, $clientMock);
 	$cetelem->setDebug(TRUE);
@@ -51,5 +49,5 @@ test(function() {
 	Assert::same($uver->celkovaCastka, 12552);
 	Assert::same($uver->info, ['Prodejce nema povolen produkt']);
 
-	$mockista->assertExpectations();
+	Mockery::close();
 });
