@@ -10,7 +10,7 @@ Knihovna pro zjednodušení práce s Webkalkulačkou firmy Cetelem. Prozatím ko
 Instalace
 ---------
 
-	composer require sunfoxcz/cetelem:~0.3
+	composer require sunfoxcz/cetelem:~0.4
 
 Použití
 -------
